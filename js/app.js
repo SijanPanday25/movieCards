@@ -1,0 +1,59 @@
+let movieData = []
+
+fetch('https://imdb-api.com/en/API/Top250Movies/k_3lbc4eph')
+.then((res) => res.json())
+.then((data) => {
+  // console.log(data);
+  funcLocalData(data.items);
+  funcCards(movieData);
+});
+
+//==========================================================
+// Local copy of the data 
+
+funcLocalData = (movies) => {
+  movies.map((m)=> {
+    movieData.push ({
+      id: m.id,
+      image: m.image,
+      title: m.title,
+      year: m.year,
+      imDbRating: m.imDbRating,
+      likes: 0,
+      Comments: '',
+    });
+  });
+  console.log(movieData);
+};
+//==========================================================
+
+//==========================================================
+// Create card 
+
+funcCards = (newMovieData) => {
+
+  let tempCardData = '';
+  newMovieData.map((nmd)=> {
+    tempCardData += ` <div class="movieCard">
+    <img 
+      src="${nmd.image}" 
+      alt="${nmd.title}" 
+    />
+    <div class="movieCardDetails">
+      <h2>${nmd.title}</h2>
+      <p>${nmd.year}</p>
+      <p>IMDB Rating: <span>${nmd.imDbRating}</span></p>
+      <div class="movieCardSocial">
+        <a href="#"><i class="fas fa-heart"></i></a>
+        <a href="#"><i class="fas fa-share-alt"></i></a>
+        <a href="#"><i class="fas fa-comment"></i></a>
+      </div>
+    </div>
+    </div>`;
+  })
+  
+  document.querySelector('body').innerHTML = tempCardData; 
+
+};
+
+//==========================================================

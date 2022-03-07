@@ -23,6 +23,7 @@ funcLocalData = (movies) => {
       Comments: '',
     });
   });
+
   // console.log(movieData);
 };
 //==========================================================

@@ -23,7 +23,7 @@ funcLocalData = (movies) => {
       Comments: '',
     });
   });
-  console.log(movieData);
+  // console.log(movieData);
 };
 //==========================================================
 
@@ -43,10 +43,11 @@ funcCards = (newMovieData) => {
       <h2>${nmd.title}</h2>
       <p>${nmd.year}</p>
       <p>IMDB Rating: <span>${nmd.imDbRating}</span></p>
+      ${nmd.Comments ? `<p><span style="font-weight: bold">Comment:</span>${nmd.Comments}</p>` : ''}
       <div class="movieCardSocial">
         <a href="#" onClick="funcLike('${nmd.id}')"><i class="fas fa-heart ${nmd.likes ? 'likeHeart' : ''} "></i></a>
         <a href="https://www.imdb.com/title/${nmd.id}/" target="_blank"><i class="fas fa-share-alt"></i></a>
-        <a href="#"><i class="fas fa-comment"></i></a>
+        <a href="#" onClick="funcComment('${nmd.id}')"><i class="fas fa-comment ${nmd.Comments ? 'commented' : ''}"></i></a>
       </div>
     </div>
     </div>`;
@@ -60,6 +61,7 @@ funcCards = (newMovieData) => {
 
 //==========================================================
 //  Likes Clicked
+
 funcLike = (i) => {
   //console.log(i);
 
@@ -78,6 +80,29 @@ funcLike = (i) => {
   funcCards(movieData);
 };
 
+//==========================================================
+
+//==========================================================
+//  Submit A comment
+
+funcComment = (i) => {
+  // console.log('comment', i);
+
+  let tempComment = prompt('Submit your comment');
+  
+  console.log(tempComment);
+
+  movieData = movieData.map((m) => {
+    if (m.id === i) {
+      m.Comments = tempComment;
+    }
+    return m;
+  });
+
+  // console.log(movieData);
+
+  funcCards(movieData);
+};
 
 //==========================================================
 
